@@ -17,3 +17,34 @@ Include your answers in this document (Rmd file). Make sure that it knits proper
 
 All submissions to the github repo will be automatically uploaded for grading once the due date is passed.
 Submit a link to your repository on Canvas (only one submission per team) to signal to the instructors that you are done with your submission.
+
+# Lab Report #2: Exploring Residential Sales in Ames
+
+## Description
+This lab explores residential sales data in Ames since 2017. Our team analyzed various aspects of the dataset, including key variables influencing sale prices. Findings are summarized below.
+
+## Step 1 Result: Initial Data Inspection
+- Identified dataset variables and their types
+- Assessed expected data ranges
+- Special focus variable selected for further exploration
+
+## Step 2 Result: Exploration of Main Variable (Sale Price)
+- Visualized the distribution of sale prices using histograms
+- Noted general patterns and any anomalies
+- Identified potential outliers
+
+## Step 3 Result: Investigation of a Related Variable
+- Selected a variable correlated with Sale Price (e.g., Lot Size, Year Built)
+- Visualized the relationship with scatterplots and boxplots
+- Analyzed patterns and identified any oddities
+
+## Step 4 Result: Team Member Contributions
+- Ash's work: Analyzed the effect of Lot Size on Sale Price, Examined the impact of Year Built on Sale Price and Investigated additional factors (e.g., Neighborhood, House Quality)
+
+## Summary of Findings
+- Sale Price is significantly influenced by Lot Size and Year Built
+- Certain neighborhoods show higher property values
+- Anomalies and outliers identified in older properties and extreme lot sizes
+
+## Conclusion
+Our analysis provided insights into key factors affecting residential property sales in Ames. Future work could include deeper statistical modeling to refine predictions.
