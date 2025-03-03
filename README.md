@@ -1,4 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/jprAAZBt)
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
 
@@ -17,3 +16,211 @@ All submissions to the github repo will be automatically uploaded for
 grading once the due date is passed. Submit a link to your repository on
 Canvas (only one submission per team) to signal to the instructors that
 you are done with your submission.
+
+# Lab Report \#2: Exploring Residential Sales in Ames
+
+## Description
+
+This lab explores residential sales data in Ames since 2017. Our team
+analyzed various aspects of the dataset, including key variables
+influencing sale prices. Findings are summarized below.
+
+## Step 1 Result: Initial Data Inspection
+
+- Identified dataset variables and their types
+- Assessed expected data ranges
+- Special focus variable selected for further exploration
+
+``` r
+load("ames.rda")
+head(ames)
+```
+
+    ## # A tibble: 6 × 16
+    ##   `Parcel ID` Address      Style Occupancy `Sale Date` `Sale Price` `Multi Sale`
+    ##   <chr>       <chr>        <fct> <fct>     <date>             <dbl> <chr>       
+    ## 1 0903202160  1024 RIDGEW… 1 1/… Single-F… 2022-08-12        181900 <NA>        
+    ## 2 0907428215  4503 TWAIN … 1 St… Condomin… 2022-08-04        127100 <NA>        
+    ## 3 0909428070  2030 MCCART… 1 St… Single-F… 2022-08-15             0 <NA>        
+    ## 4 0923203160  3404 EMERAL… 1 St… Townhouse 2022-08-09        245000 <NA>        
+    ## 5 0520440010  4507 EVERES… <NA>  <NA>      2022-08-03        449664 <NA>        
+    ## 6 0907275030  4512 HEMING… 2 St… Single-F… 2022-08-16        368000 <NA>        
+    ## # ℹ 9 more variables: YearBuilt <dbl>, Acres <dbl>,
+    ## #   `TotalLivingArea (sf)` <dbl>, Bedrooms <dbl>,
+    ## #   `FinishedBsmtArea (sf)` <dbl>, `LotArea(sf)` <dbl>, AC <chr>,
+    ## #   FirePlace <chr>, Neighborhood <fct>
+
+**What variables are there?**
+
+- Parcel ID
+
+- Address
+
+- Style
+
+- Occupancy
+
+- Sale Date
+
+- Sale Price
+
+- Multi Sale
+
+- YearBuilt
+
+- Acres
+
+- TotalLivingArea (sf)
+
+- Bedrooms
+
+- FinishedBsmtArea (sf)
+
+- LotArea (sf)
+
+- AC
+
+- FirePlace
+
+- Neighborhood
+
+**Of what type are the variables?**
+
+- Parcel ID: Character
+
+- Address: Character
+
+- Style: Factor
+
+- Occupancy: Factor
+
+- Sale Date: Date
+
+- Sale Price: Double
+
+- Multi Sale: Character
+
+- YearBuilt: Double
+
+- Acres: Double
+
+- TotalLivingArea: Double
+
+- Bedrooms: Double
+
+- FinishedBsmtArea: Double
+
+- LotArea: Double
+
+- AC: Character
+
+- FirePlace: Character
+
+- Neighborhood: Factor
+
+**What does each variable mean?**
+
+- Parcel ID: Unique ID for each property
+
+- Address: Street address of the property
+
+- Style: Architectural style of the property
+
+- Occupancy: If the property is owner occupied, tenant occupied, or
+  vacant
+
+- Sale Date: The date of when the property was sold
+
+- Sale Price: How much the property was sold for
+
+- Multi Sale: If the property was part of a multiple property
+  transaction
+
+- YearBuilt: The year the property was built
+
+- Acres: Size of the property in acres
+
+- TotalLivingArea (sf): Total livable area of the property in square
+  feet
+
+- Bedrooms: Number of bedrooms at the property
+
+- FinishedBsmtArea (sf): Area of the finished basement in square feet
+
+- LotArea (sf): Total area of the lot in square feet
+
+- AC: If the property has air conditioning
+
+- FirePlace: If the property has a fire place
+
+- Neighborhood: Neighborhood where the property is located
+
+## Step 2 Result: Exploration of Main Variable (Sale Price)
+
+- Visualized the distribution of sale prices using histograms
+- Noted general patterns and any anomalies
+- Identified potential outliers
+
+## Step 3 Result: Investigation of a Related Variable
+
+- Selected a variable correlated with Sale Price (e.g., Lot Size, Year
+  Built)
+- Visualized the relationship with scatterplots and boxplots
+- Analyzed patterns and identified any oddities
+
+## Step 4 Result: Team Member Contributions
+
+- Ash’s work: Analyzed the effect of Lot Size on Sale Price, Examined
+  the impact of Year Built on Sale Price and Investigated additional
+  factors (e.g., Neighborhood, House Quality)
+
+- Aden’s work: Analyzing the effect of Total Living Area on Sale Price.
+
+``` r
+ggplot(ames, aes(x = `TotalLivingArea (sf)`)) +
+  geom_histogram(binwidth = 250, fill = "skyblue", color = "black") +
+  labs(title = "Distribution of Total Living Area",
+       x = "Total Living Area (sq ft)",
+       y = "Count") +
+  theme_minimal()
+```
+
+    ## Warning: Removed 447 rows containing non-finite outside the scale range
+    ## (`stat_bin()`).
+
+![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+The plot is right skewed and we can see that our range is from somewhere
+close to 0 sqft to 6000 sqft. Also, most homes have around 1500 - 2500
+sqft.
+
+``` r
+ggplot(ames, aes(x = `TotalLivingArea (sf)`, y = `Sale Price`)) +
+  geom_point(alpha = 0.6, color = "blue", size = 1.5) +  # Improved point visibility
+  scale_y_continuous(limits = c(0, 2000000)) +  # Limit Sale Price to $2M to remove outliers
+  labs(title = "Scatter Plot of Sale Price vs. Total Living Area",
+       x = "Total Living Area (sqft)",
+       y = "Sale Price ($)") +
+  theme_minimal()
+```
+
+    ## Warning: Removed 779 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+As the Total Living Area increases Sale Price also tends to increase.
+This makes sense as larger living spaces usually cost more.
+
+## Summary of Findings
+
+- Sale Price is significantly influenced by Lot Size and Year Built
+- Certain neighborhoods show higher property values
+- Anomalies and outliers identified in older properties and extreme lot
+  sizes
+
+## Conclusion
+
+Our analysis provided insights into key factors affecting residential
+property sales in Ames. Future work could include deeper statistical
+modeling to refine predictions.
