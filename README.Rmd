@@ -4,7 +4,6 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
@@ -13,144 +12,179 @@ library(dplyr)
 
 # Lab report #1
 
-Follow the instructions posted at https://ds202-at-isu.github.io/labs.html for the lab assignment. The work is meant to be finished during the lab time, but you have time until Monday evening to polish things.
+Follow the instructions posted at <https://ds202-at-isu.github.io/labs.html> for the lab assignment. The work is meant to be finished during the lab time, but you have time until Monday evening to polish things.
 
-Include your answers in this document (Rmd file). Make sure that it knits properly (into the md file). Upload both the Rmd and the md file to your repository.  
+Include your answers in this document (Rmd file). Make sure that it knits properly (into the md file). Upload both the Rmd and the md file to your repository.
 
-All submissions to the github repo will be automatically uploaded for grading once the due date is passed.
-Submit a link to your repository on Canvas (only one submission per team) to signal to the instructors that you are done with your submission.
+All submissions to the github repo will be automatically uploaded for grading once the due date is passed. Submit a link to your repository on Canvas (only one submission per team) to signal to the instructors that you are done with your submission.
 
 # Lab Report #2: Exploring Residential Sales in Ames
 
 ## Description
+
 This lab explores residential sales data in Ames since 2017. Our team analyzed various aspects of the dataset, including key variables influencing sale prices. Findings are summarized below.
 
 ## Step 1 Result: Initial Data Inspection
-- Identified dataset variables and their types
-- Assessed expected data ranges
-- Special focus variable selected for further exploration
 
-```{r} 
+-   Identified dataset variables and their types
+-   Assessed expected data ranges
+-   Special focus variable selected for further exploration
+
+```{r}
 load("ames.rda")
 head(ames)
 ```
 
-**What variables are there?** 
+**What variables are there?**
 
-- Parcel ID
+-   Parcel ID
 
-- Address
+-   Address
 
-- Style
+-   Style
 
-- Occupancy
+-   Occupancy
 
-- Sale Date
+-   Sale Date
 
-- Sale Price
+-   Sale Price
 
-- Multi Sale
+-   Multi Sale
 
-- YearBuilt
+-   YearBuilt
 
-- Acres
+-   Acres
 
-- TotalLivingArea (sf)
+-   TotalLivingArea (sf)
 
-- Bedrooms
+-   Bedrooms
 
-- FinishedBsmtArea (sf)
+-   FinishedBsmtArea (sf)
 
-- LotArea (sf)
+-   LotArea (sf)
 
-- AC
+-   AC
 
-- FirePlace
+-   FirePlace
 
-- Neighborhood
+-   Neighborhood
 
 **Of what type are the variables?**
 
-- Parcel ID: Character
+-   Parcel ID: Character
 
-- Address: Character
+-   Address: Character
 
-- Style: Factor
+-   Style: Factor
 
-- Occupancy: Factor
+-   Occupancy: Factor
 
-- Sale Date: Date
+-   Sale Date: Date
 
-- Sale Price: Double
+-   Sale Price: Double
 
-- Multi Sale: Character
+-   Multi Sale: Character
 
-- YearBuilt: Double
+-   YearBuilt: Double
 
-- Acres: Double
+-   Acres: Double
 
-- TotalLivingArea: Double
+-   TotalLivingArea: Double
 
-- Bedrooms: Double
+-   Bedrooms: Double
 
-- FinishedBsmtArea: Double
+-   FinishedBsmtArea: Double
 
-- LotArea: Double
+-   LotArea: Double
 
-- AC: Character
+-   AC: Character
 
-- FirePlace: Character
+-   FirePlace: Character
 
-- Neighborhood: Factor
+-   Neighborhood: Factor
 
 **What does each variable mean?**
 
-- Parcel ID: Unique ID for each property
+-   Parcel ID: Unique ID for each property
 
-- Address: Street address of the property
+-   Address: Street address of the property
 
-- Style: Architectural style of the property
+-   Style: Architectural style of the property
 
-- Occupancy: If the property is owner occupied, tenant occupied, or vacant
+-   Occupancy: If the property is owner occupied, tenant occupied, or vacant
 
-- Sale Date: The date of when the property was sold
+-   Sale Date: The date of when the property was sold
 
-- Sale Price: How much the property was sold for
+-   Sale Price: How much the property was sold for
 
-- Multi Sale: If the property was part of a multiple property transaction
+-   Multi Sale: If the property was part of a multiple property transaction
 
-- YearBuilt: The year the property was built
+-   YearBuilt: The year the property was built
 
-- Acres: Size of the property in acres
+-   Acres: Size of the property in acres
 
-- TotalLivingArea (sf): Total livable area of the property in square feet
+-   TotalLivingArea (sf): Total livable area of the property in square feet
 
-- Bedrooms: Number of bedrooms at the property
+-   Bedrooms: Number of bedrooms at the property
 
-- FinishedBsmtArea (sf): Area of the finished basement in square feet
+-   FinishedBsmtArea (sf): Area of the finished basement in square feet
 
-- LotArea (sf): Total area of the lot in square feet
+-   LotArea (sf): Total area of the lot in square feet
 
-- AC: If the property has air conditioning
+-   AC: If the property has air conditioning
 
-- FirePlace: If the property has a fire place
+-   FirePlace: If the property has a fire place
 
-- Neighborhood: Neighborhood where the property is located
+-   Neighborhood: Neighborhood where the property is located
 
 ## Step 2 Result: Exploration of Main Variable (Sale Price)
-- Visualized the distribution of sale prices using histograms
-- Noted general patterns and any anomalies
-- Identified potential outliers
+
+-   Visualized the distribution of sale prices using histograms
+-   Noted general patterns and any anomalies
+-   Identified potential outliers
 
 ## Step 3 Result: Investigation of a Related Variable
-- Selected a variable correlated with Sale Price (e.g., Lot Size, Year Built)
-- Visualized the relationship with scatterplots and boxplots
-- Analyzed patterns and identified any oddities
+
+-   Selected a variable correlated with Sale Price (e.g., Lot Size, Year Built)
+-   Visualized the relationship with scatterplots and boxplots
+-   Analyzed patterns and identified any oddities
+
+(Kush's Work):
+A code chunk that creates a bar chart to display the distribution of the number of bedrooms:
+
+```markdown
+### Distribution of Bedrooms
+
+Let's visualize the distribution of bedrooms across the properties:
+
+```{r bedrooms-distribution, echo=TRUE, warning=FALSE, message=FALSE}
+# Plot the distribution of Bedrooms
+ggplot(ames, aes(x = Bedrooms)) +
+  geom_bar(fill = "lightgreen", color = "black") +
+  labs(title = "Distribution of Bedrooms",
+       x = "Number of Bedrooms",
+       y = "Count") +
+  theme_minimal()
+``` 
+
+Relationship between Bedrooms and Sale Price:
+
+```{r bedrooms-saleprice, echo=TRUE, warning=FALSE, message=FALSE}
+# Boxplot to show relationship between Bedrooms and Sale Price
+ggplot(ames, aes(x = as.factor(Bedrooms), y = `Sale Price`)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(title = "Sale Price by Number of Bedrooms",
+       x = "Number of Bedrooms",
+       y = "Sale Price ($)") +
+  theme_minimal()
+```
+
 
 ## Step 4 Result: Team Member Contributions
-- Ash's work: Analyzed the effect of Lot Size on Sale Price, Examined the impact of Year Built on Sale Price and Investigated additional factors (e.g., Neighborhood, House Quality)
 
-- Aden's work: Analyzing the effect of Total Living Area on Sale Price.
+-   Ash's work: Analyzed the effect of Lot Size on Sale Price, Examined the impact of Year Built on Sale Price and Investigated additional factors (e.g., Neighborhood, House Quality)
+
+-   Aden's work: Analyzing the effect of Total Living Area on Sale Price.
 
 ```{r}
 ggplot(ames, aes(x = `TotalLivingArea (sf)`)) +
@@ -175,10 +209,44 @@ ggplot(ames, aes(x = `TotalLivingArea (sf)`, y = `Sale Price`)) +
 
 As the Total Living Area increases Sale Price also tends to increase. This makes sense as larger living spaces usually cost more.
 
+-   Kush's work: Exploring the Impact of Bedrooms on Sale Price
+
+In this section, I analyze how the number of bedrooms in a property relates to its sale price. My hypothesis is that properties with an optimal number of bedrooms (for example, 3–4 bedrooms) tend to have higher sale prices compared to those with too few or too many bedrooms.
+
+```{r bedrooms-summary, echo=TRUE, warning=FALSE, message=FALSE}
+# Summary statistics for the Bedrooms variable
+summary(ames$Bedrooms)
+```
+
+```{r bedrooms-plot, echo=TRUE, warning=FALSE, message=FALSE}
+# Plot the distribution of Bedrooms
+ggplot(ames, aes(x = Bedrooms)) + 
+  geom_bar(fill = "lightgreen", color = "black") + 
+  labs(title = "Summary of Bedrooms", 
+       x = "Number of Bedrooms", 
+       y = "Count") + 
+  theme_minimal()
+```
+
+Distribution of Bedrooms:
+The bar chart shows that most properties in the dataset have between 2 to 4 bedrooms, with 3-bedroom homes being the most common.
+There are very few properties with 0, 7, 8, 9, or 10 bedrooms, indicating that such configurations are rare in this dataset.
+A warning in the output suggests that 447 rows contained missing or non-finite values, meaning there may be some properties without recorded bedroom counts.
+
+Sale Price vs. Number of Bedrooms
+The boxplot suggests that sale price does not increase linearly with the number of bedrooms.
+While 1-bedroom homes show a wide range of sale prices, including some extreme outliers, properties with 2 to 5 bedrooms generally have more stable and lower sale prices.
+Some extreme high-value outliers are present in the dataset, particularly for 1-bedroom homes.
+The sale prices for homes with 6 or more bedrooms remain relatively low, indicating that having a very high bedroom count does not necessarily translate to higher property value.
+Some properties are recorded as having 0 bedrooms, which could be an error or represent non-residential buildings.
+
+
 ## Summary of Findings
-- Sale Price is significantly influenced by Lot Size and Year Built
-- Certain neighborhoods show higher property values
-- Anomalies and outliers identified in older properties and extreme lot sizes
+
+-   Sale Price is significantly influenced by Lot Size and Year Built
+-   Certain neighborhoods show higher property values
+-   Anomalies and outliers identified in older properties and extreme lot sizes
 
 ## Conclusion
+
 Our analysis provided insights into key factors affecting residential property sales in Ames. Future work could include deeper statistical modeling to refine predictions.

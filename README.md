@@ -168,6 +168,41 @@ head(ames)
 - Visualized the relationship with scatterplots and boxplots
 - Analyzed patterns and identified any oddities
 
+(Kush’s Work): A code chunk that creates a bar chart to display the
+distribution of the number of bedrooms:
+
+``` markdown
+### Distribution of Bedrooms
+
+Let's visualize the distribution of bedrooms across the properties:
+
+
+``` r
+# Plot the distribution of Bedrooms
+ggplot(ames, aes(x = Bedrooms)) +
+  geom_bar(fill = "lightgreen", color = "black") +
+  labs(title = "Distribution of Bedrooms",
+       x = "Number of Bedrooms",
+       y = "Count") +
+  theme_minimal()
+```
+
+![](README_files/figure-gfm/bedrooms-distribution-1.png)<!-- -->
+
+Relationship between Bedrooms and Sale Price:
+
+``` r
+# Boxplot to show relationship between Bedrooms and Sale Price
+ggplot(ames, aes(x = as.factor(Bedrooms), y = `Sale Price`)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(title = "Sale Price by Number of Bedrooms",
+       x = "Number of Bedrooms",
+       y = "Sale Price ($)") +
+  theme_minimal()
+```
+
+![](README_files/figure-gfm/bedrooms-saleprice-1.png)<!-- -->
+
 ## Step 4 Result: Team Member Contributions
 
 - Ash’s work: Analyzed the effect of Lot Size on Sale Price, Examined
@@ -211,6 +246,52 @@ ggplot(ames, aes(x = `TotalLivingArea (sf)`, y = `Sale Price`)) +
 
 As the Total Living Area increases Sale Price also tends to increase.
 This makes sense as larger living spaces usually cost more.
+
+- Kush’s work: Exploring the Impact of Bedrooms on Sale Price
+
+In this section, I analyze how the number of bedrooms in a property
+relates to its sale price. My hypothesis is that properties with an
+optimal number of bedrooms (for example, 3–4 bedrooms) tend to have
+higher sale prices compared to those with too few or too many bedrooms.
+
+``` r
+# Summary statistics for the Bedrooms variable
+summary(ames$Bedrooms)
+```
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+    ##   0.000   3.000   3.000   3.299   4.000  10.000     447
+
+``` r
+# Plot the distribution of Bedrooms
+ggplot(ames, aes(x = Bedrooms)) + 
+  geom_bar(fill = "lightgreen", color = "black") + 
+  labs(title = "Summary of Bedrooms", 
+       x = "Number of Bedrooms", 
+       y = "Count") + 
+  theme_minimal()
+```
+
+![](README_files/figure-gfm/bedrooms-plot-1.png)<!-- -->
+
+Distribution of Bedrooms: The bar chart shows that most properties in
+the dataset have between 2 to 4 bedrooms, with 3-bedroom homes being the
+most common. There are very few properties with 0, 7, 8, 9, or 10
+bedrooms, indicating that such configurations are rare in this dataset.
+A warning in the output suggests that 447 rows contained missing or
+non-finite values, meaning there may be some properties without recorded
+bedroom counts.
+
+Sale Price vs. Number of Bedrooms The boxplot suggests that sale price
+does not increase linearly with the number of bedrooms. While 1-bedroom
+homes show a wide range of sale prices, including some extreme outliers,
+properties with 2 to 5 bedrooms generally have more stable and lower
+sale prices. Some extreme high-value outliers are present in the
+dataset, particularly for 1-bedroom homes. The sale prices for homes
+with 6 or more bedrooms remain relatively low, indicating that having a
+very high bedroom count does not necessarily translate to higher
+property value. Some properties are recorded as having 0 bedrooms, which
+could be an error or represent non-residential buildings.
 
 ## Summary of Findings
 
