@@ -293,6 +293,51 @@ very high bedroom count does not necessarily translate to higher
 property value. Some properties are recorded as having 0 bedrooms, which
 could be an error or represent non-residential buildings.
 
+- Selim’s Work (Year Built and Sale Price Analysis) Observations: -The
+  histogram shows that most homes were built in clusters, with spikes in
+  certain decades. -There are some older homes with very high prices,
+  likely due to renovations or historical significance. -Some newer
+  homes sell for less than expected, possibly due to smaller size or
+  location factors.
+
+``` r
+# Install missing packages
+if (!require(dplyr)) install.packages("dplyr", dependencies=TRUE)
+if (!require(ggplot2)) install.packages("ggplot2", dependencies=TRUE)
+
+# Load libraries
+library(dplyr)
+library(ggplot2)
+
+# Load the dataset
+load("ames.rda")
+
+# Check column names to verify correct Sale Price column name
+print(colnames(ames))
+```
+
+    ##  [1] "Parcel ID"             "Address"               "Style"                
+    ##  [4] "Occupancy"             "Sale Date"             "Sale Price"           
+    ##  [7] "Multi Sale"            "YearBuilt"             "Acres"                
+    ## [10] "TotalLivingArea (sf)"  "Bedrooms"              "FinishedBsmtArea (sf)"
+    ## [13] "LotArea(sf)"           "AC"                    "FirePlace"            
+    ## [16] "Neighborhood"
+
+``` r
+# Plot 1: Histogram of Year Built
+ggplot(ames, aes(x = YearBuilt)) +
+  geom_histogram(binwidth = 5, fill = "purple", color = "black") +
+  labs(title = "Distribution of Year Built for Homes",
+       x = "Year Built",
+       y = "Count") +
+  theme_minimal()
+```
+
+    ## Warning: Removed 447 rows containing non-finite outside the scale range
+    ## (`stat_bin()`).
+
+![](README_files/figure-gfm/yearbuilt%20and%20sale-1.png)<!-- -->
+
 ## Summary of Findings
 
 - Sale Price is significantly influenced by Lot Size and Year Built
